@@ -1,0 +1,34 @@
+.person-details{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.person-image{
+    object-fit: cover;
+    width: 150px;
+    height: 200px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.person-details .card-body{
+    padding: 0px;
+    width: 100%;
+}
+
+.person-details .card-body ul > li{
+    padding: 5px 0;
+}
+
+.person-details .card-body h4{
+    padding: 0 20px;
+    padding-bottom: 10px;
+}
+
+.person-details .card-body ul{
+    padding: 0 35px;
+}

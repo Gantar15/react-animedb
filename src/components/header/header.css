@@ -1,0 +1,33 @@
+a{
+    text-decoration: none;
+}
+
+.header {
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 10px;
+    width: 100%;
+  }
+  
+  .header ul, h3{
+      margin-bottom: 0;
+  }
+  .header ul li {
+    list-style: none;
+    margin: 0;
+    padding: .5rem 1rem;
+    border-radius: 3px;
+  }
+
+  .header ul li a{
+    color: rgb(40, 124, 233);
+  }
+  .header ul li a:hover{
+    color: rgb(70, 145, 243);
+  }
+  
+  .header a {
+    color: white;
+  }
+
+  
