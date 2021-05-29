@@ -2,6 +2,12 @@
 .item-list{
     margin-bottom: 20px;
     padding-top: 0px; 
+    background-color: #303030;
+}
+
+.item-list > li {
+    white-space: nowrap;
+    padding: 10px;
 }
 
 .item-list > li:hover{

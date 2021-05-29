@@ -1,14 +1,14 @@
 .person-details{
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
     border-radius: 5px;
 }
 
 .person-image{
     object-fit: cover;
-    width: 150px;
+    width: 200px;
     height: 200px;
     border-radius: 5px;
     display: flex;
@@ -24,6 +24,10 @@
     padding: 5px 0;
 }
 
+.person-details .card-body ul > li > span:first-child{
+    margin-right: 10px;
+}
+
 .person-details .card-body h4{
     padding: 0 20px;
     padding-bottom: 10px;
@@ -31,4 +35,8 @@
 
 .person-details .card-body ul{
     padding: 0 35px;
+}
+
+.person-details .card-body ul li .term{
+    font-weight: bold;
 }

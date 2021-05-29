@@ -58,15 +58,40 @@ export default class ApiService {
         return this._transformatePerson(data);
     }
 
+    getIdFromUrl(url){
+        const match = url.match(/^.+\/(\d+)\/?.*$/);
+        return match[1];
+    }
+
     _transformatePerson(data){
         const {
             name, birthday,
-            image_url: img, about
+            image_url: img, about,
+            url
         } = data;
         
+        const id = this.getIdFromUrl(url);
+
         return {
             name, birthday,
-            img, about
+            img, about,
+            id
         };
+    }
+
+    async getAllPerson(count){
+        const data = [];
+        for(let i = 1; i <= count; i++){
+            let val;
+            try{
+                val = await this.getResourse(`character/${i}`);
+            } catch(err){
+                count++;
+            }
+            
+            if(val)
+                data.push(val);
+        }   
+        return data.map(this._transformatePerson.bind(this));
     }
 }

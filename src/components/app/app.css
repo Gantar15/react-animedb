@@ -13,6 +13,7 @@
 
     .page-body > div:nth-child(2){
         margin-left: 0px !important;
+        min-width: 100%;
     }
 }
 
@@ -22,10 +23,19 @@
     justify-content: space-between;
 }
 
-.page-body > div{
+.page-body > div:nth-child(1){
     flex-grow: 1;
 }
 
 .page-body > div:nth-child(2){
+    margin-left: 20px;
+    max-width: 70%;
+    flex-grow: 2;
+}
+
+.buttons-block{
+    margin-bottom: 30px;
+}
+.buttons-block button:nth-of-type(2){
     margin-left: 20px;
 }
