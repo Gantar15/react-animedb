@@ -1,18 +1,33 @@
+import { Component } from 'react';
+
 import Header from '../header';
 import RandomBox from '../random-box';
-import ErrorIndicator from '../error-indicator';
 import ErrorThrower from '../error-thrower';
-import PersonPage from '../person-page';
+import ErrorBoundry from '../error-boundry';
+import Row from '../row';
+
+import {ApiServiceProvider} from '../api-service-context';
+import ApiService from '../../services/api-service';
+
+import {
+    AnimeList,
+    MangaList,
+    PersonList,
+    AnimeDetails,
+    MangaDetails,
+    PersonDetails
+} from '../an-components';
 
 import './app.css';
-import { Component } from 'react';
+
 
 export default class App extends Component {
 
+    apiService = new ApiService();
+
     state = {
         showRandomBox: true,
-        selectedPerson: null,
-        hasError: false
+        selectedItem: null
     };
 
     componentDidCatch(err){
@@ -24,7 +39,7 @@ export default class App extends Component {
 
     onItemSelected = (id) => {
         this.setState({
-            selectedPerson: id
+            selectedItem: id
         });
     };
 
@@ -39,26 +54,24 @@ export default class App extends Component {
     render() {
         const randomBox = this.state.showRandomBox ? <RandomBox /> : null;
 
-        if(this.state.hasError){
-            return (
-                <ErrorIndicator />
-            );
-        }
-
         return (
-            <div className="app">
-                <Header />
-                {randomBox}
-                <div className='buttons-block'>
-                    <button type="button" className="toggle-random-box btn btn-light"
-                        onClick={this.toggleRandomBox}>
-                            Toggle random anime
-                    </button>
-                    <ErrorThrower />
-                </div>
+            <ApiServiceProvider value={this.apiService}>
+                <ErrorBoundry>
+                    <div className="app">
+                        <Header />
+                        {randomBox}
+                        <div className='buttons-block'>
+                            <button type="button" className="toggle-random-box btn btn-light"
+                                onClick={this.toggleRandomBox}>
+                                    Toggle random anime
+                            </button>
+                            <ErrorThrower />
+                        </div>
 
-                <PersonPage />
-            </div>
+                        <Row left={<PersonList itemId={54} onItemSelected={this.onItemSelected}/>} right={<PersonDetails itemId={this.state.selectedItem}/>}/>
+                    </div>
+                </ErrorBoundry>
+            </ApiServiceProvider>
         );
     }
 }

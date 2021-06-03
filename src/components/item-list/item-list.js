@@ -1,54 +1,34 @@
-import { Component } from 'react';
-import ApiService from '../../services/api-service';
-import Loader from '../loader/loader';
-
 import './item-list.css';
 
-export default class ItemList extends Component {
 
-  state = {
-    peopleList: null
-  };
-
-  apiService = new ApiService();
-
-  componentDidMount = () => {
-    this.apiService.getAllPerson(8)
-      .then(peopleList => {
-        this.setState({
-          peopleList
-        });
-      })
-      .catch(err => console.log(err));
-  };
-
-  renderItems(arr){
-    return arr.map(({id, name}) => {
+function ItemList(props) {
+  function renderItems(arr){
+    return arr.map(item => {
+      const {id} = item;
+      let label;
+      if(typeof props.children === 'function')
+        label = props.children(item);
+      else
+        label = props.renderItem(item);
+      
       return (
         <li className="list-group-item"
           key={id}
-          onClick={() => this.props.onItemSelected(id)}>
-          {name}
+          onClick={() => props.onItemSelected(id)}>
+          {label}
         </li>
       );
     });
   }
 
-  render() {
-    const {peopleList} = this.state;
+  const {data} = props;
+  const items = renderItems(data);
 
-    if(!peopleList){
-      return (
-        <ul className="item-list list-group">
-          <Loader />
-        </ul>
-      );
-    }
-
-    return (
-      <ul className="item-list list-group">
-        {this.renderItems(peopleList)}
-      </ul>
-    );
-  }
+  return (
+    <ul className="item-list list-group">
+      {items}
+    </ul>
+  );
 }
+
+export default ItemList;

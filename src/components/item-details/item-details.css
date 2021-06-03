@@ -1,4 +1,4 @@
-.person-details{
+.item-details{
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -6,7 +6,7 @@
     border-radius: 5px;
 }
 
-.person-image{
+.item-image{
     object-fit: cover;
     width: 200px;
     height: 200px;
@@ -15,28 +15,28 @@
     align-items: center;
 }
 
-.person-details .card-body{
+.item-details .card-body{
     padding: 0px;
     width: 100%;
 }
 
-.person-details .card-body ul > li{
+.item-details .card-body ul > li{
     padding: 5px 0;
 }
 
-.person-details .card-body ul > li > span:first-child{
+.item-details .card-body ul > li > span:first-child{
     margin-right: 10px;
 }
 
-.person-details .card-body h4{
+.item-details .card-body h4{
     padding: 0 20px;
     padding-bottom: 10px;
 }
 
-.person-details .card-body ul{
+.item-details .card-body ul{
     padding: 0 35px;
 }
 
-.person-details .card-body ul li .term{
+.item-details .card-body ul li .term{
     font-weight: bold;
 }

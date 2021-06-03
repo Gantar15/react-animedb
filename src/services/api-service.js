@@ -11,27 +11,54 @@ export default class ApiService {
         return await res.json();
     }
 
-    async getAnime(id){
-        const data = await this.getResourse(`anime/${id}`);
-        return this._transfotmateAnime(data);
+    getIdFromUrl(url){
+        const match = url.match(/^.+\/(\d+)\/?.*$/);
+        return match[1];
     }
 
-    _transfotmateAnime(data){ 
+    //Anime
+    async getAnime(id){
+        const data = await this.getResourse(`anime/${id}`);
+        return this._transformateAnime(data);
+    }
+
+    _transformateAnime(data){ 
         const {
             title, score, 
             status, episodes,
             image_url: img,
-            synopsis: description
+            synopsis: description,
+            url
         } = data;
         
+        const id = this.getIdFromUrl(url);
+
         return {
           title, score,
           status, episodes,
           img,
-          description
+          description,
+          id
         };
     }
 
+    async getAllAnime(count){
+        const data = [];
+        for(let i = 1; i <= count; i++){
+            let val;
+            try{
+                val = await this.getResourse(`anime/${i}`);
+            } catch(err){
+                count++;
+            }
+            
+            if(val)
+                data.push(val);
+        }   
+        return data.map(this._transformateAnime.bind(this));
+    }
+
+    //Manga
     async getManga(id){
         const data = await this.getResourse(`manga/${id}`);
         return this._transformateManga(data);
@@ -42,38 +69,54 @@ export default class ApiService {
             title, score, 
             status, chapters,
             image_url: img,
-            synopsis: description
-        } = data;
-        
-        return {
-          title, score,
-          status, chapters,
-          img,
-          description
-        };
-    }
-
-    async getPerson(id){
-        const data = await this.getResourse(`person/${id}`);
-        return this._transformatePerson(data);
-    }
-
-    getIdFromUrl(url){
-        const match = url.match(/^.+\/(\d+)\/?.*$/);
-        return match[1];
-    }
-
-    _transformatePerson(data){
-        const {
-            name, birthday,
-            image_url: img, about,
+            synopsis: description,
             url
         } = data;
         
         const id = this.getIdFromUrl(url);
 
         return {
-            name, birthday,
+          title, score,
+          status, chapters,
+          img,
+          description,
+          id
+        };
+    }
+
+    async getAllManga(count){
+        const data = [];
+        for(let i = 1; i <= count; i++){
+            let val;
+            try{
+                val = await this.getResourse(`manga/${i}`);
+            } catch(err){
+                count++;
+            }
+            
+            if(val)
+                data.push(val);
+        }   
+        return data.map(this._transformateManga.bind(this));
+    }
+
+    //Person
+    async getPerson(id){
+        const data = await this.getResourse(`character/${id}`);
+        return this._transformatePerson(data);
+    }
+
+    _transformatePerson(data){
+        const {
+            name,image_url: img,
+            about, url,
+            name_kanji
+        } = data;
+        
+        const id = this.getIdFromUrl(url);
+
+        return {
+            name, name_kanji,
             img, about,
             id
         };
