@@ -1,4 +1,6 @@
+import ItemDetails from '../item-details';
 import './item-list.css';
+import PropTypes from 'prop-types';
 
 
 function ItemList(props) {
@@ -9,7 +11,7 @@ function ItemList(props) {
       if(typeof props.children === 'function')
         label = props.children(item);
       else
-        label = props.renderItem(item);
+        console.log(props)
       
       return (
         <li className="list-group-item"
@@ -29,6 +31,16 @@ function ItemList(props) {
       {items}
     </ul>
   );
+}
+
+ItemList.defaultProps = {
+  onItemSelected: () => {console.log('sad')}
+};
+
+ItemDetails.propTypes = {
+  onItemSelected: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.func.isRequired
 }
 
 export default ItemList;

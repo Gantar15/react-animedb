@@ -1,17 +1,9 @@
 import ItemList from '../item-list';
 import manageData from '../hoc-helper'
 import {withApiService} from '../hoc-helper';
+import {withChildFunction} from '../hoc-helper';
 
 
-const withChildFunction = (Wrapped, fn) => {
-    return props => {
-        return (
-            <Wrapped {...props}>
-                {fn}
-            </Wrapped>
-        ); 
-    };
-};
 const nameRender = ({name, name_kanji}) => {
     return <span>{name} ({name_kanji})</span>;
 };
@@ -35,6 +27,7 @@ const mapAnimeMethodsToProps = apiService => {
         getData: count => apiService.getAllAnime(count)
     };
 }
+
 
 const AnimeList = withApiService(
     manageData(

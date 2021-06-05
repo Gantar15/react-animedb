@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ApiService from '../../services/api-service';
 import Loader from '../loader';
 import ErrorIndicator from '../error-indicator';
+import PropTypes from 'prop-types';
 
 import './random-box.css';
 
@@ -9,6 +10,14 @@ import './random-box.css';
 export default class RandomBox extends Component {
 
   service = new ApiService();
+
+  static defaultProps = {
+    updateInterval: 15000
+  };
+
+  static propTypes = {
+    updateInterval: PropTypes.number
+  };
 
   state = {
     anime: {
@@ -29,8 +38,9 @@ export default class RandomBox extends Component {
 
   //Компонент инициализирован и отрендерен на странице
   componentDidMount(){
+    const {updateInterval} = this.props;
     this.update();
-    this.interval = setInterval(() => this.update(), 15000);
+    this.interval = setInterval(() => this.update(), updateInterval);
   }
 
   //Компонент удаляется

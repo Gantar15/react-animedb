@@ -4,30 +4,20 @@ import Header from '../header';
 import RandomBox from '../random-box';
 import ErrorThrower from '../error-thrower';
 import ErrorBoundry from '../error-boundry';
-import Row from '../row';
+
+import {PersonPage} from '../pages';
 
 import {ApiServiceProvider} from '../api-service-context';
 import ApiService from '../../services/api-service';
-
-import {
-    AnimeList,
-    MangaList,
-    PersonList,
-    AnimeDetails,
-    MangaDetails,
-    PersonDetails
-} from '../an-components';
 
 import './app.css';
 
 
 export default class App extends Component {
 
-    apiService = new ApiService();
-
     state = {
         showRandomBox: true,
-        selectedItem: null
+        apiService: new ApiService()
     };
 
     componentDidCatch(err){
@@ -37,12 +27,6 @@ export default class App extends Component {
         });
     }
 
-    onItemSelected = (id) => {
-        this.setState({
-            selectedItem: id
-        });
-    };
-
     toggleRandomBox = () => {
         this.setState(currentState => {
             return {
@@ -51,11 +35,15 @@ export default class App extends Component {
         });
     };
 
+    changeApiService = apiService => {
+        this.state();
+    }
+
     render() {
-        const randomBox = this.state.showRandomBox ? <RandomBox /> : null;
+        const randomBox = this.state.showRandomBox ? <RandomBox updateInterval={10000}/> : null;
 
         return (
-            <ApiServiceProvider value={this.apiService}>
+            <ApiServiceProvider value={this.state.apiService}>
                 <ErrorBoundry>
                     <div className="app">
                         <Header />
@@ -66,9 +54,9 @@ export default class App extends Component {
                                     Toggle random anime
                             </button>
                             <ErrorThrower />
-                        </div>
+                        </div> 
 
-                        <Row left={<PersonList itemId={54} onItemSelected={this.onItemSelected}/>} right={<PersonDetails itemId={this.state.selectedItem}/>}/>
+                        <PersonPage />
                     </div>
                 </ErrorBoundry>
             </ApiServiceProvider>
