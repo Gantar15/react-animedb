@@ -16,8 +16,8 @@ export class MangaPage extends Component{
 
     render(){
         return (
-            <Row left={<MangaDetails itemId={54} onItemSelected={this.onItemSelected}/>}
-            right={<MangaList itemId={this.state.selectedItem}/>}/>
+            <Row left={<MangaList itemId={54} onItemSelected={this.onItemSelected}/>}
+            right={<MangaDetails itemId={this.state.selectedItem}/>}/>
         );
     }
 }

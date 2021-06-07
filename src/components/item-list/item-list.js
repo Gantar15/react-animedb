@@ -34,7 +34,7 @@ function ItemList(props) {
 }
 
 ItemList.defaultProps = {
-  onItemSelected: () => {console.log('sad')}
+  onItemSelected: () => {}
 };
 
 ItemDetails.propTypes = {

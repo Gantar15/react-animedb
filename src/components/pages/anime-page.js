@@ -1,23 +1,15 @@
-import { Component } from "react";
-import {AnimeDetails, AnimeList} from '../an-components';
-import Row from '../row';
+import {AnimeList} from '../an-components';
+import {withRouter} from 'react-router-dom';
 
-export class AnimePage extends Component{
 
-    state = {
-        selectedItem: null
-    };
+let AnimePage = ({history}) => {
+    return (
+        <AnimeList itemId={54} onItemSelected={itemId => {
+            const newPath = `/anime/${itemId}`;
+            history.push(newPath);
+        }}/>
+    );
+};
+AnimePage = withRouter(AnimePage);
 
-    onItemSelected = (id) => {
-        this.setState({
-            selectedItem: id
-        });
-    };
-
-    render(){
-        return (
-            <Row left={<AnimeList itemId={54} onItemSelected={this.onItemSelected}/>}
-            right={<AnimeDetails itemId={this.state.selectedItem}/>}/>
-        );
-    }
-}
+export {AnimePage};
