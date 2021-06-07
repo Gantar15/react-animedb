@@ -10,3 +10,6 @@ export {
 export {
     MangaPage
 } from './manga-page';
+
+export {SecretPage} from './secret-page';
+export {LoginPage} from './login-page';
